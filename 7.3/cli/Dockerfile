@@ -2,6 +2,8 @@ FROM php:7.3-cli-stretch
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+ARG NVM_VERSION="v0.34.0"
+
 # Install packages needed for additional repos packages
 RUN set -xe; \
     \
@@ -101,11 +103,6 @@ RUN set -xe; \
     usermod -aG sudo thunder;
 
 RUN set -xe; \
-    NVM_VERSION=$(curl --silent "https://api.github.com/repos/nvm-sh/nvm/releases/latest" | jq -r ".tag_name"); \
-    \
-    NVM_VERSION=${NVM_VERSION:-"v0.34.0"}; \
-    \
-    echo "Installing NVM: ${NVM_VERSION}"; \
     \
     su - thunder -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/$NVM_VERSION/install.sh | bash"; \
     \
