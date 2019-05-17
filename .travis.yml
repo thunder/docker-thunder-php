@@ -1,0 +1,25 @@
+language: bash
+services: docker
+
+env:
+  - VERSION=7.3 VARIANT=cli
+
+before_script:
+  - cd "$VERSION/$VARIANT"
+  - slash='/'; image="thunder-php:${VERSION}-${VARIANT//$slash/-}"
+
+script:
+  - cd "$VERSION/$VARIANT"
+  - docker build -t "$image" .
+  - docker-compose -f docker-compose.test.yml -p test-thunder-php build
+  - docker-compose -f docker-compose.test.yml -p test-thunder-php up -d
+  - TEST_RESULT=$(docker wait test-thunder-php_sut_1)
+  - |
+    (
+      if (( $TEST_RESULT != 0 )); then
+        exit 1
+      fi
+    )
+
+after_script:
+  - docker images
