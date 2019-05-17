@@ -5,12 +5,11 @@ env:
   - VERSION=7.3 VARIANT=cli
 
 before_script:
-  - cd "$VERSION/$VARIANT"
-  - slash='/'; image="thunder-php:${VERSION}-${VARIANT//$slash/-}"
+  - slash='/'; THUNDER_PHP_IMAGE_TAG="thunder-php:${VERSION}-${VARIANT//$slash/-}"
 
 script:
   - cd "$VERSION/$VARIANT"
-  - docker build -t "$image" .
+  - docker build -t "$THUNDER_PHP_IMAGE_TAG" .
   - docker-compose -f docker-compose.test.yml -p test-thunder-php build
   - docker-compose -f docker-compose.test.yml -p test-thunder-php up -d
   - TEST_RESULT=$(docker wait test-thunder-php_sut_1)
