@@ -8,19 +8,13 @@ RUN set -xe; \
     apt-get update; \
     \
     apt-get install -y --no-install-recommends \
-        gnupg \
         apt-transport-https \
-    ;
-
-# Yarn
-RUN set -xe; \
+        gnupg \
+    ; \
     \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -; \
     \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list;
-
-# Install additional packages
-RUN set -xe; \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list; \
     \
     apt-get update; \
     \
@@ -37,25 +31,14 @@ RUN set -xe; \
         mysql-client \
         unzip \
         yarn \
-        zip \
     ; \
-    \
-    apt-get clean; \
-    \
-    rm -rf /var/lib/apt/lists/*;
-
-# GD configuration
-RUN set -xe; \
     \
     docker-php-ext-configure gd \
         --with-gd \
         --with-freetype-dir=/usr/include/ \
         --with-jpeg-dir=/usr/include/ \
         --with-png-dir=/usr/include/ \
-    ;
-
-# Install PHP libraries
-RUN set -xe; \
+    ; \
     \
     docker-php-ext-install \
         gd \
@@ -67,7 +50,25 @@ RUN set -xe; \
     \
     pecl install imagick; \
     \
-    docker-php-ext-enable imagick;
+    docker-php-ext-enable imagick; \
+    \
+    pecl clear-cache; \
+    \
+    apt-get purge -y --auto-remove \
+        apt-transport-https \
+        gnupg \
+        libjpeg-dev \
+        libmagickwand-dev \
+        libpng-dev \
+        libpq-dev \
+        libxml2-dev \
+        libzip-dev \
+        mysql-client \
+    ; \
+    \
+    apt-get clean; \
+    \
+    rm -rf /var/lib/apt/lists/*;
 
 # Setup PHP Cli OpCache
 RUN { \
@@ -127,13 +128,6 @@ RUN set -xe; \
     chmod +x /usr/local/bin/thunder-php-serve; \
     \
     chmod +x /usr/local/bin/thunder-php-run;
-
-# CleanUp
-RUN set -xe; \
-    \
-	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-    \
-	rm -rf /var/lib/apt/lists/*;
 
 # Define all runtime environments
 ENV DB_HOST="127.0.0.1"
