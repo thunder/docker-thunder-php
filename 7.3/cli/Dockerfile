@@ -103,6 +103,10 @@ RUN set -xe; \
 RUN set -xe; \
     NVM_VERSION=$(curl --silent "https://api.github.com/repos/nvm-sh/nvm/releases/latest" | jq -r ".tag_name"); \
     \
+    NVM_VERSION=${NVM_VERSION:-"v0.34.0"}; \
+    \
+    echo "Installing NVM: ${NVM_VERSION}"; \
+    \
     su - thunder -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/$NVM_VERSION/install.sh | bash"; \
     \
     echo -e "\nexport NVM_DIR=\"\$HOME/.nvm\"\n[ -s \"\$NVM_DIR/nvm.sh\" ] && \. \"\$NVM_DIR/nvm.sh\"\n" >> /home/thunder/.profile;
