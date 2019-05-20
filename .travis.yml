@@ -11,7 +11,7 @@ script:
   - docker build -f $VERSION/$VARIANT/Dockerfile -t "$THUNDER_PHP_IMAGE_TAG" .
   - docker-compose -f $VERSION/$VARIANT/docker-compose.test.yml -p test build
   - docker-compose -f $VERSION/$VARIANT/docker-compose.test.yml -p test up -d
-  - TEST_RESULT=$(docker wait test_sut_1)
+  - TEST_RESULT=$(travis_wait 20 docker wait test_sut_1)
   - |
     (
       if (( $TEST_RESULT != 0 )); then
