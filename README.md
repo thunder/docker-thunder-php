@@ -28,3 +28,9 @@ The container will require some time to install Thunder and after that it will s
 - `BRANCH_NAME` - Thunder distribution branch
 - `THUNDER_PROJECT` - Thunder project branch
 - `ADDITIONAL_PHP_PACKAGES` - Composer install will use provided packages add then to Thunder installation **(not tested)**
+
+### How to build image
+
+In base repository directory execute following command to build 7.3-cli variation of image.
+
+`docker build -f 7.3/cli/Dockerfile .`

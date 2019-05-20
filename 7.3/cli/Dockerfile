@@ -4,6 +4,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ARG NVM_VERSION="v0.34.0"
 
+ARG DOCKERFILE_DIR="7.3/cli"
+
 # Install packages needed for additional repos packages
 RUN set -xe; \
     \
@@ -114,10 +116,10 @@ RUN set -xe; \
     su - thunder -c "nvm install node";
 
 # Copy build and install script
-COPY thunder-php-build /usr/local/bin/
-COPY thunder-php-install /usr/local/bin/
-COPY thunder-php-serve /usr/local/bin/
-COPY thunder-php-run /usr/local/bin/
+COPY $DOCKERFILE_DIR/thunder-php-build /usr/local/bin/
+COPY $DOCKERFILE_DIR/thunder-php-install /usr/local/bin/
+COPY $DOCKERFILE_DIR/thunder-php-serve /usr/local/bin/
+COPY $DOCKERFILE_DIR/thunder-php-run /usr/local/bin/
 
 # Set executable
 RUN set -xe; \
