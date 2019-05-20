@@ -17,5 +17,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        DOCKERFILE_DIR: .
     environment:
       DB_HOST: "dbhost"

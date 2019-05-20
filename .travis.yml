@@ -9,9 +9,8 @@ before_script:
 
 script:
   - docker build -f $VERSION/$VARIANT/Dockerfile -t "$THUNDER_PHP_IMAGE_TAG" .
-  - cd "$VERSION/$VARIANT"
-  - docker-compose -f docker-compose.test.yml -p test build
-  - docker-compose -f docker-compose.test.yml -p test up -d
+  - docker-compose -f $VERSION/$VARIANT/docker-compose.test.yml -p test build
+  - docker-compose -f $VERSION/$VARIANT/docker-compose.test.yml -p test up -d
   - TEST_RESULT=$(docker wait test_sut_1)
   - |
     (
