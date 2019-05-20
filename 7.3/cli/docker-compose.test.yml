@@ -5,19 +5,10 @@ services:
     build:
       context: test
       dockerfile: Dockerfile
-  dbhost:
-    image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: "true"
-      MYSQL_DATABASE: "thunder"
-      MYSQL_USER: "thunder"
-      MYSQL_PASSWORD: "thunder"
   thunder-php:
     build:
       context: .
       dockerfile: Dockerfile
       args:
         DOCKERFILE_DIR: .
-    environment:
-      DB_HOST: "dbhost"
+    command: ["echo", "-e", "<?php\necho 'Thunder-PHP';", ">", "index.php", ";", "php", "-S", "0.0.0.0:8080", "index.php"]

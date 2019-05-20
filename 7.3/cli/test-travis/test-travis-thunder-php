@@ -10,7 +10,7 @@ CURRENT_TIMESTAMP=$(date +%s)
 WAIT_UNTIL_TIMESTAMP=$((CURRENT_TIMESTAMP + MAX_WAIT))
 
 # Wait for server to be ready
-until $(curl --output /dev/null --silent --head --fail "http://${THUNDER_HOST}:8080"); do
+until $(curl --output /dev/null --silent --head --fail "http://${THUNDER_HOST}:8080/"); do
     if [ $(date +%s) -gt ${WAIT_UNTIL_TIMESTAMP} ]; then
       echo "Max time excided"
       exit 1
@@ -21,4 +21,4 @@ until $(curl --output /dev/null --silent --head --fail "http://${THUNDER_HOST}:8
 done
 
 # Check that homepage is returned correctly
-curl -s "http://${THUNDER_HOST}:8080" | grep -q "Thunder-PHP"
+curl -s "http://${THUNDER_HOST}:8080/" | grep -q "meta.*Generator.*Thunder"
