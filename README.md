@@ -4,7 +4,7 @@
 
 This image contains PHP libraries required for Thunder CMS, on top of Official PHP Docker image. So you can simply execute:
 
-`docker run -it thunder-php:latest`
+`docker run -it burda/thunder-php:latest`
 
 and execute some PHP functions. For example:
 
