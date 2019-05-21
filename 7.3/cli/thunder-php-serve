@@ -1,6 +1,0 @@
-#!/bin/bash
-#
-# Serve Thunder
-
-cd /home/thunder/www/docroot
-php -S 0.0.0.0:8080 .ht.router.php
