@@ -2,19 +2,17 @@ FROM php:7.3-cli-stretch
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Install packages needed for additional repos packages
+# Install required libraries and packages
 RUN set -xe; \
     \
     apt-get update; \
     \
     apt-get install -y --no-install-recommends \
         git \
-        imagemagick \
+        libfreetype6-dev \
         libjpeg-dev \
-        libmagickwand-dev \
         libpng-dev \
         libpq-dev \
-        libxml2-dev \
         libzip-dev \
     ; \
     \
@@ -33,18 +31,7 @@ RUN set -xe; \
         zip \
     ; \
     \
-    pecl install imagick; \
-    \
-    docker-php-ext-enable imagick; \
-    \
-    pecl clear-cache; \
-    \
-    apt-get purge -y --auto-remove \
-        libjpeg-dev \
-        libmagickwand-dev \
-        libpng-dev \
-        libxml2-dev \
-    ; \
+    apt list --installed | grep -o '.*-dev' | xargs apt-get purge -y; \
     \
     apt-get clean; \
     \
