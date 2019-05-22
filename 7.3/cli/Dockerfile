@@ -59,7 +59,7 @@ RUN { \
 		echo 'opcache.max_accelerated_files=10000'; \
 		echo 'opcache.validate_timestamps=0'; \
 		echo 'opcache.fast_shutdown=1'; \
-	} > /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini;
+	} >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini;
 
 # Install composer
 RUN set -xe; \
