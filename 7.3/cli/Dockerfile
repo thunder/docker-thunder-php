@@ -26,6 +26,7 @@ RUN set -xe; \
     docker-php-ext-install \
         gd \
         opcache \
+        pcntl \
         pdo_mysql \
         pdo_pgsql \
         zip \
@@ -52,7 +53,7 @@ RUN { \
 RUN set -xe; \
     \
     curl https://getcomposer.org/installer --output composer-setup.php; \
-    \ 
+    \
     php composer-setup.php; \
     \
     rm -rf composer-setup.php; \
