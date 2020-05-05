@@ -50,8 +50,8 @@ RUN { \
 	} >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini; \
 	\
 	{ \
-        echo 'memory_limit=512M'; \
-    } >> /usr/local/etc/php/conf.d/custom.ini;
+		echo 'memory_limit=512M'; \
+	} >> /usr/local/etc/php/conf.d/custom.ini;
 
 # Install composer
 RUN set -xe; \
