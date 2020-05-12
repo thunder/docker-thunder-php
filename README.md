@@ -15,3 +15,7 @@ and execute some PHP functions. For example:
 In base repository directory execute following command to build 7.3-cli variation of image.
 
 `docker build -f 7.3/cli/Dockerfile .`
+
+Or
+
+`docker build -f 7.3/apache/Dockerfile . --tag burda/thunder-php:apache`
